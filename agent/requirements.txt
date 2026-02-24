@@ -1,0 +1,3 @@
+slixmpp
+openai
+python-dotenv

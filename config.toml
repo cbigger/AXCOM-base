@@ -1,0 +1,29 @@
+[dotenv]
+dotenv_path="SET_BY_INIT"
+
+[controller]
+jid = "controller@localhost"
+server = "127.0.0.1"
+port = 5222
+ca_certs = ["/etc/prosody/certs/localhost.crt"]
+
+[operator]
+jid = "operator@localhost"
+
+
+[prosody_api]
+base_url = "http://127.0.0.1:5280"
+# auth or token depending on module
+
+[vhosts]
+research = "research.local"
+security = "security.local"
+admin = "admin.local"
+
+[docker]
+image_tag = "clawcommander-agent:latest"
+build_context = ".."
+dockerfile = "../agent/Dockerfile"
+xmpp_host = "127.0.0.1"
+cert_dir = "/etc/prosody/certs"
+network_mode = "host"
