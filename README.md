@@ -8,7 +8,7 @@ AXCOM agent services can be run as a child process of the `controller` script/se
 ## TO-DO
 1. systemd daemonization -- Need to make the unit file and update (or create a separate) install script and service paths.
 2. Packaging tools for creating agent container images
-3. recongiguration and admin account adminstration tools (currently use `prosodyctl` for central account management, want to bundle things into AXCOM tools)
+3. reconfiguration and admin account adminstration tools (currently use `prosodyctl` for central account management, want to bundle things into AXCOM tools)
 
 ## Requirements
 This early version is built and tested on Debian virtual machines. 
@@ -81,6 +81,4 @@ If you *do* know what you are doing, then you probably already noticed that the 
 
 A `.env` file will be placed in the project root during installation, specifically when the `python clicontroller.py init` command is run to generate the operator and controller accounts. If you want to set your own passwords, you can edit the included `env.example` file, save it as `.env`, and then run the installation script(s). The clicontroller script will find the .env and use the passwords it finds.
 
-
-
-If you run into issues due to improper configuration, it is suggested to remove and re-install the application suite. Make sure to remove the
+If you run into issues due to improper configuration, it is suggested to remove and re-install the repo from scratch, until I build out some more functionality in clicontroller.py.
