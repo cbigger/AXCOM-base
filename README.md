@@ -1,5 +1,5 @@
 # Agent XMPP Commander |  A X C O M
-Build, depl0y, manage, and command AI agents via XMPP.
+Build, deploy, manage, and command AI agents via XMPP.
 
 ## Overview
 AXCOM is a set of tools for agent swarm creation and communication over [XMPP](https://xmpp.org/about/technology-overview/). It is written primarily in Python and is meant to be both AI agent and XMPP client agnostic.
