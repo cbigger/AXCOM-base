@@ -22,12 +22,13 @@ The basic requirements are:
 3. python-venv -- The systemd service runs under its own virtual environment
 4. [Prosody IM](https://prosody.im/) -- This is one of two well known open source xmpp server applications, and supports custom plugins via lua-based module scripts
 5. [Docker](https://docs.docker.com/engine/install/debian/) -- Technically optional, but a major component of the platform's intended use and direction. Used to spawn agent containers. Installing docker-ce requries a few steps, and they've been added in their own `install-docker.sh` script for debian systems
-6. Some kind of XMPP chat client. You can probably use any you like, but I test AXCOM with both the fully-featured [Dino](https://dino.im/) and the bare-boned [tkabber](https://tkabber.jabber.ru/) XMPP clients.
+6. Some kind of XMPP chat client. You can probably use any you like, but I test AXCOM with both the fully-featured [Dino](https://dino.im/) and the bare-boned [Tkabber](https://tkabber.jabber.ru/) XMPP clients.
 
 ## Installation
 Being by cloning the repository:
 ```bash
 git clone https://github.com/cbigger/AXCOM-base
+cd AXCOM-base
 ```
 
 You can easily install AXCOM by running the bootstrapping script, which will install prosody, python-pip, and python-venv before running the install.sh script itself:
@@ -53,6 +54,18 @@ You can confirm docker is running with (or any other docker command, really):
 sudo docker ps
 ```
 Unless you already had docker installed and containers running, this should return an empty table.
+
+You will need a client to communicate with your agents. I test AXCOM with the GUI clients **Tkabber** and **Dino**, both of which are available through apt (and other package managers, I'm sure):
+```bash
+sudo apt install dino-im
+```
+or
+```bash
+sudo apt install tkabber
+```
+Tkabber is old and simple and should work out of the box, though you will need to log out and back in to update your roster as agents are spawned. If you use the logout function without closing Tkabber, your login information will be saved, and you can log back in easily to update the roster list.
+
+Dino-IM is a more modern client, and includes a great deal of extra features that I hope to take advantage of soon, including photo sharing and proper E2E encryption. Sending messages to AXCOM chats requires manually disabling encryption lock in the settings or by clicking the lock icon to the right of the text input in the chat window itself.
 
 ## Usage
 At the moment, I'm still building out the framework. A PoC for agent communication is included, but the main focus after daemonization is the addition of tools to create AXCOM agent images out of popular agent applications (like the Claw family, Claude Code, etc.).
