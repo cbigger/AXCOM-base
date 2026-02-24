@@ -22,6 +22,7 @@ The basic requirements are:
 3. python-venv -- The systemd service runs under its own virtual environment
 4. [Prosody IM](https://prosody.im/) -- This is one of two well known open source xmpp server applications, and supports custom plugins via lua-based module scripts
 5. [Docker](https://docs.docker.com/engine/install/debian/) -- Technically optional, but a major component of the platform's intended use and direction. Used to spawn agent containers. Installing docker-ce requries a few steps, and they've been added in their own `install-docker.sh` script for debian systems
+6. Some kind of XMPP chat client. You can probably use any you like, but I test AXCOM with both the fully-featured [Dino](https://dino.im/) and the bare-boned [tkabber](https://tkabber.jabber.ru/) XMPP clients.
 
 ## Installation
 Being by cloning the repository:
