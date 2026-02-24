@@ -1,0 +1,28 @@
+[Unit]
+Description=AXCOM Controller Bot
+# Starts after the network is up and prosody has started, but does not
+# require either to remain running -- the bot handles its own reconnect logic.
+After=network-online.target prosody.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=axcom
+Group=axcom
+
+WorkingDirectory=/opt/axcom/controller
+ExecStart=/opt/axcom/.venv/bin/python controller.py
+
+# Restart on failure with the same delay the bot uses internally for XMPP reconnects.
+Restart=on-failure
+RestartSec=10
+
+# Give the process time to shut down cleanly before SIGKILL.
+TimeoutStopSec=30
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=axcom-controller
+
+[Install]
+WantedBy=multi-user.target
