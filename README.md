@@ -8,6 +8,7 @@ AXCOM agent services can be run as a child process of the `controller` script/se
 ## TO-DO
 1. systemd daemonization -- Need to make the unit file and update (or create a separate) install script and service paths.
 2. Packaging tools for creating agent container images
+3. recongiguration and admin account adminstration tools (currently use `prosodyctl` for central account management, want to bundle things into AXCOM tools)
 
 ## Requirements
 This early version is built and tested on Debian virtual machines. 
@@ -23,6 +24,11 @@ The basic requirements are:
 5. [Docker](https://docs.docker.com/engine/install/debian/) -- Technically optional, but a major component of the platform's intended use and direction. Used to spawn agent containers. Installing docker-ce requries a few steps, and they've been added in their own `install-docker.sh` script for debian systems
 
 ## Installation
+Being by cloning the repository:
+```bash
+git clone https://github.com/cbigger/AXCOM-base
+```
+
 You can easily install AXCOM by running the bootstrapping script, which will install prosody, python-pip, and python-venv before running the install.sh script itself:
 ```
 sudo bash bootstrap.sh
@@ -59,8 +65,22 @@ python controller.py
 You should see output confirming successful connection and login to your prosody Virtual Host "localhost".
 You can then login to the localhost server using your XMPP client of choice with the username `operator` and the password found in the `.env`.
 
+You can send messages to `controller@localhost` to interact with your AXCOM instance:
+```bash
+
+```
+...or, you can make use of the included `clicontroller.py` script, which has some but not all of the functionality of the `controller` account:
+```bash
+
+```
 
 ## Configuration
 Unless you know what you are doing, there isn't any reason to edit the `config.toml` file found in the project root. AXCOM will fill it out during install as needed, and the agent builder and controller bot will use it to setup connections.
 
 If you *do* know what you are doing, then you probably already noticed that the `config.toml` is where you can make changes to the Prosody server and file install locations, and where the docker tools write to.
+
+A `.env` file will be placed in the project root during installation, specifically when the `python clicontroller.py init` command is run to generate the operator and controller accounts. If you want to set your own passwords, you can edit the included `env.example` file, save it as `.env`, and then run the installation script(s). The clicontroller script will find the .env and use the passwords it finds.
+
+
+
+If you run into issues due to improper configuration, it is suggested to remove and re-install the application suite. Make sure to remove the
