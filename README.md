@@ -2,13 +2,17 @@
 Build, deploy, manage, and command AI agents via XMPP.
 
 ## Overview
-AXCOM is a set of tools for agent swarm creation and communication over [XMPP](https://xmpp.org/about/technology-overview/). It is written primarily in Python and is meant to be both AI agent and XMPP client agnostic.
+AXCOM-base is a set of tools for agent swarm creation and communication over [XMPP](https://xmpp.org/about/technology-overview/). It is written primarily in Python and is meant to be both AI agent and XMPP client agnostic.
 AXCOM agent services can be run as a child process of the `controller` script/service, or they can be spawned into their own containers.
 
+Eventually, AXCOM will enable you to login to its XMPP server and spin up all kinds of agents with different skills, configurations, service locations, etc., and communicate directly with them in private and MUC (multi-user chat) rooms, all while keeping them segmented on their own containers and under fine-grained network and file access controls enforced at multiple layers.
+
+
 ## TO-DO
-1. systemd daemonization -- Need to make the unit file and update (or create a separate) install script and service paths.
+1. Systemd daemonization -- Need to make the unit file and update (or create a separate) install script and service paths.
 2. Packaging tools for creating agent container images
-3. reconfiguration and admin account adminstration tools (currently use `prosodyctl` for central account management, want to bundle things into AXCOM tools)
+3. Build out mini-agent to enable safe AXCOM administration via natural language.
+4. reconfiguration and admin account adminstration tools (currently use `prosodyctl` for central account management, want to bundle things into AXCOM tools)
 
 ## Requirements
 This early version is built and tested on Debian virtual machines. 
