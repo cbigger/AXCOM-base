@@ -116,17 +116,26 @@ echo "      Virtualenv built."
 # Permissions
 # ---------------------------------------------------------------------------
 
-echo "[5/7] Setting ownership..."
+echo "[5/7] Setting ownership and sudo permissions..."
 
-# The service user owns the entire install directory.
 chown -R "$SERVICE_USER":"$SERVICE_GROUP" "$INSTALL_DIR"
-
-# The .env contains credentials -- restrict it to the service user only.
 chmod 600 "$INSTALL_DIR/.env"
 
-# Prosody cert keys are root:prosody 640. The service user is now in the
-# prosody group so it can read them. The certs directory itself is 751,
-# which is also traversable. No changes needed there.
+# Grant the service user passwordless sudo for prosodyctl only.
+# Written as a drop-in to avoid touching /etc/sudoers directly.
+# visudo -c validates syntax before we put it in place.
+SUDOERS_FILE="/etc/sudoers.d/axcom"
+SUDOERS_TMP="$(mktemp)"
+
+cat > "$SUDOERS_TMP" <<EOF
+# AXCOM controller service -- allows prosodyctl calls from the axcom user
+${SERVICE_USER} ALL=(root) NOPASSWD: /usr/bin/prosodyctl
+EOF
+
+chmod 440 "$SUDOERS_TMP"
+visudo -c -f "$SUDOERS_TMP"
+mv "$SUDOERS_TMP" "$SUDOERS_FILE"
+echo "      Sudoers rule written to: $SUDOERS_FILE"
 
 echo "      Ownership set."
 
