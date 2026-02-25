@@ -24,6 +24,7 @@ The basic requirements are:
 1. Python3.13+ with slixmpp, dotenv,and openai (optional, used by built-in mini-agent)
 2. python-pip -- Included as a dependency because it is used by the installation and agent container scripts
 3. python-venv -- The systemd service runs under its own virtual environment
+4. [rsync](https://linux.die.net/man/1/rsync) -- Used to sync files across containers; standard Linux tool
 4. [Prosody IM](https://prosody.im/) -- This is one of two well known open source xmpp server applications, and supports custom plugins via lua-based module scripts
 5. [Docker](https://docs.docker.com/engine/install/debian/) -- Technically optional, but a major component of the platform's intended use and direction. Used to spawn agent containers. Installing docker-ce requries a few steps, and they've been added in their own `install-docker.sh` script for debian systems
 6. Some kind of XMPP chat client. You can probably use any you like, but I test AXCOM with both the fully-featured [Dino](https://dino.im/) and the bare-boned [Tkabber](https://tkabber.jabber.ru/) XMPP clients.
@@ -35,7 +36,7 @@ tar -xf <axcom filename>.tar
 cd AXCOM-base
 ```
 
-You can easily install AXCOM by running the bootstrapping script, which will install prosody, python-pip, and python-venv before running the install.sh script itself:
+You can easily install AXCOM by running the bootstrapping script, which will install prosody, python-pip, python-venv, and rsync before running the install.sh script itself:
 ```
 sudo bash bootstrap.sh
 ```

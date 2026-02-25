@@ -8,8 +8,21 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-echo "ClawCommander bootstrapping debian install.."
+echo "AXCOM bootstrapping Debian install.."
 echo ""
-sudo apt install -y prosody python3-pip python3-venv
-
+echo "Installing prosody, pip, virtualenv, and rsync with apt..."
+echo ""
+sudo apt install -y prosody python3-pip python3-venv rsync
+echo "Running install-docker.sh..."
+echo ""
+sudo bash install-docker.sh
+echo "Running install.sh..."
+echo ""
 sudo bash install.sh
+echo "Running install-service.sh..."
+echo ""
+sudo bash install-service.sh
+echo ""
+echo ""
+echo "===== Bootstrap complete ====="
+echo ""
