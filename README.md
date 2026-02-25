@@ -29,9 +29,9 @@ The basic requirements are:
 6. Some kind of XMPP chat client. You can probably use any you like, but I test AXCOM with both the fully-featured [Dino](https://dino.im/) and the bare-boned [Tkabber](https://tkabber.jabber.ru/) XMPP clients.
 
 ## Installation
-Being by cloning the repository:
+Being by downloading from the release page - I'm currently working directly on main, and will be until I announce the project. If you somehow made it here before then, you can unzip the release and use the package with the following:
 ```bash
-git clone https://github.com/cbigger/AXCOM-base
+tar -xf <axcom filename>.tar
 cd AXCOM-base
 ```
 
