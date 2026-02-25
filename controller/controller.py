@@ -119,7 +119,7 @@ class Controller(slixmpp.ClientXMPP):
         self.connect(self.server, self.xmpp_port)
 
     async def _on_session_start(self, event):
-        self.send_presence(pstatus="ClawController online")
+        self.send_presence(pstatus="AXMON controller online")
         await self.get_roster()
         log.info(f"controller connected as {self.boundjid}")
 
@@ -264,7 +264,7 @@ class Controller(slixmpp.ClientXMPP):
 
     def _cmd_help(self):
         return (
-            "ClawController commands:\n"
+            "AXCOM controller commands:\n"
             "\n"
             "  Process agents:\n"
             "    spawn <vhost_key> <name>  - Create agent (subprocess)\n"
@@ -583,7 +583,7 @@ if __name__ == "__main__":
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     )
 
-    parser = argparse.ArgumentParser(description="ClawController")
+    parser = argparse.ArgumentParser(description="AXCOM Controller")
     parser.add_argument(
         "--spawn-test",
         action="store_true",

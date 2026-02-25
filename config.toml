@@ -21,7 +21,7 @@ security = "security.local"
 admin = "admin.local"
 
 [docker]
-image_tag = "clawcommander-agent:latest"
+image_tag = "axcom-agent:latest"
 build_context = ".."
 dockerfile = "../agent/Dockerfile"
 xmpp_host = "127.0.0.1"

@@ -1,5 +1,5 @@
 """
-dockerctl.py - Docker wrapper for ClawCommander agent containers.
+dockerctl.py - Docker wrapper for AXCOM agent containers.
 Handles all Docker operations via subprocess, mirroring the xmppctl pattern.
 """
 
