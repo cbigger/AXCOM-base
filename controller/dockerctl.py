@@ -9,8 +9,8 @@ import json
 
 log = logging.getLogger(__name__)
 
-CONTAINER_LABEL = "clawcommander=agent"
-DEFAULT_IMAGE_TAG = "clawcommander-agent:latest"
+CONTAINER_LABEL = "axmon-agent=agent"
+DEFAULT_IMAGE_TAG = "axmon-agent:latest"
 
 
 def _run(command, timeout=120):
@@ -43,14 +43,14 @@ def _run(command, timeout=120):
 def build_image(build_context, dockerfile_path, tag=DEFAULT_IMAGE_TAG):
     """Build the agent Docker image from the project root."""
     return _run(
-        f"sudo docker build -t {tag} -f {dockerfile_path} {build_context}",
+        f"docker build -t {tag} -f {dockerfile_path} {build_context}",
         timeout=300,
     )
 
 
 def image_exists(tag=DEFAULT_IMAGE_TAG):
     """Check if the agent image exists locally."""
-    ok, out = _run(f"sudo docker image inspect {tag}")
+    ok, out = _run(f"docker image inspect {tag}")
     return ok
 
 
@@ -74,10 +74,10 @@ def run_agent(container_name, env_vars, image_tag=DEFAULT_IMAGE_TAG,
     Returns:
         (success, container_id_or_error)
     """
-    parts = ["sudo docker run -d --restart unless-stopped"]
+    parts = ["docker run -d --restart unless-stopped"]
     parts.append(f"--name {container_name}")
     parts.append(f"--label {CONTAINER_LABEL}")
-    parts.append(f"--label clawcommander.jid={env_vars.get('AGENT_JID', '')}")
+    parts.append(f"--label axcom-agent.jid={env_vars.get('AGENT_JID', '')}")
 
     if network_mode:
         parts.append(f"--network {network_mode}")
@@ -100,13 +100,13 @@ def run_agent(container_name, env_vars, image_tag=DEFAULT_IMAGE_TAG,
 
 def stop_agent(container_name, timeout=10):
     """Stop a running agent container."""
-    return _run(f"sudo docker stop -t {timeout} {container_name}")
+    return _run(f"docker stop -t {timeout} {container_name}")
 
 
 def remove_agent(container_name, force=False):
     """Remove an agent container."""
     flag = " -f" if force else ""
-    return _run(f"sudo docker rm{flag} {container_name}")
+    return _run(f"docker rm{flag} {container_name}")
 
 
 def stop_and_remove(container_name):
@@ -128,7 +128,7 @@ def list_agents(all_states=False):
     flag = " -a" if all_states else ""
     fmt = '{"name":"{{.Names}}","id":"{{.ID}}","status":"{{.Status}}","image":"{{.Image}}"}'
     ok, out = _run(
-        f'sudo docker ps{flag} --filter "label={CONTAINER_LABEL}" --format \'{fmt}\''
+        f'docker ps{flag} --filter "label={CONTAINER_LABEL}" --format \'{fmt}\''
     )
     if not ok:
         return False, out
@@ -141,7 +141,7 @@ def list_agents(all_states=False):
                 info = json.loads(line)
                 # Fetch JID label
                 jid_ok, jid_out = _run(
-                    f"sudo docker inspect --format '{{{{index .Config.Labels \"clawcommander.jid\"}}}}' {info['name']}"
+                    f"docker inspect --format '{{{{index .Config.Labels \"axmon.jid\"}}}}' {info['name']}"
                 )
                 info["jid"] = jid_out if jid_ok else "unknown"
                 containers.append(info)
@@ -152,18 +152,18 @@ def list_agents(all_states=False):
 
 def logs(container_name, tail=50):
     """Get recent logs from an agent container."""
-    return _run(f"sudo docker logs --tail {tail} {container_name}")
+    return _run(f"docker logs --tail {tail} {container_name}")
 
 
 def is_running(container_name):
     """Check if a specific container is running."""
     ok, out = _run(
-        f"sudo docker inspect --format '{{{{.State.Running}}}}' {container_name}"
+        f"docker inspect --format '{{{{.State.Running}}}}' {container_name}"
     )
     return ok and out.strip().lower() == "true"
 
 
 def container_exists(container_name):
     """Check if a container exists (any state)."""
-    ok, _ = _run(f"sudo docker inspect {container_name}")
+    ok, _ = _run(f"docker inspect {container_name}")
     return ok
