@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-entrypoint.py - Docker agent entrypoint for ClawCommander.
+entrypoint.py - Docker agent entrypoint for AXCOM.
 
 Reads configuration from environment variables, connects to the XMPP server,
 confirms the connection, tests the OpenRouter LLM driver, and reports results
