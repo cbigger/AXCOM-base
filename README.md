@@ -9,9 +9,10 @@ Eventually, AXCOM will enable you to login to its XMPP server and spin up all ki
 
 
 ## TO-DO
-1. Systemd daemonization -- Need to make the unit file and update (or create a separate) install script and service paths.
+1. ~~Systemd daemonization -- Need to make the unit file and update (or create a separate) install script and service paths.~~
+1. Package a ZINO agent container for use with AXCOM. 
 2. Packaging tools for creating agent container images
-3. Build out mini-agent to enable safe AXCOM administration via natural language.
+3. Build out mini-agent to enable safe AXCOM administration via natural language - push back
 4. reconfiguration and admin account adminstration tools (currently use `prosodyctl` for central account management, want to bundle things into AXCOM tools)
 
 ## Requirements
